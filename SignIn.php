@@ -83,11 +83,11 @@ require 'google-api/vendor/autoload.php';
 $client = new Google_Client();
 
 // Enter your Client ID
-$client->setClientId('660861291809-0ohff3h3hpma93eaoogcvi48n5jum735');
+$client->setClientId('180314696087-deon2t9fr6lbrr7qr90l6hv1s5l8esb1');
 // Enter your Client Secrect
-$client->setClientSecret('6UYRy29St2aVnUIfsUe0C47T');
+$client->setClientSecret('Lx0l0i3wgzAI65imuGvfZTaS');
 // Enter the Redirect URL
-$client->setRedirectUri('http://localhost/SemProject/SignIn.php');
+$client->setRedirectUri('https://wedev-learningplatform.herokuapp.com/SignIn.php');
 
 // Adding those scopes which we want to get (email & profile Information)
 $client->addScope("email");
