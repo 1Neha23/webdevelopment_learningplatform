@@ -9,6 +9,7 @@ This website will permit user to view and download pertinent books.
 User can manage shopping cart depending on the books selected.
 To interact with user related queries.
 Recommended books will be displayed.
+
 Project Objectives 
 The main motive is to provide a learning platform where user can enhance their knowledge.
 User can easily log in to the website 
@@ -18,6 +19,7 @@ It provides a feature for user to search their apposite choice based books.
 User related queries will be resolved comfortably.
 Free courses and premium courses will be accessible to the user as per requirement.
 If the user is willing to buy some books then payment can be done through instamojo.
+
 Technical Approach 
 The approach of the project is as follows:
 Each user should have an account to access all the functionalities of the website.
