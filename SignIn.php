@@ -73,91 +73,14 @@
                   
 
                     
- <!--Sign with Google  Section------->
-<?php
-require 'db_connection.php';
-require 'google-api/src/Google/Client.php';
-require 'google-api/vendor/autoload.php';
-
-// Creating new google client instance
-$client = new Google_Client();
-
-// Enter your Client ID
-$client->setClientId('180314696087-deon2t9fr6lbrr7qr90l6hv1s5l8esb1');
-// Enter your Client Secrect
-$client->setClientSecret('Lx0l0i3wgzAI65imuGvfZTaS');
-// Enter the Redirect URL
-$client->setRedirectUri('https://wedev-learningplatform.herokuapp.com/SignIn.php');
-
-// Adding those scopes which we want to get (email & profile Information)
-$client->addScope("email");
-$client->addScope("profile");
-
-
-if(isset($_GET['code'])):
-
-    $token = $client->fetchAccessTokenWithAuthCode($_GET['code']);
-
-    if(!isset($token["error"])){
-
-        $client->setAccessToken($token['access_token']);
-
-        // getting profile information
-        $google_oauth = new Google_Service_Oauth2($client);
-        $google_account_info = $google_oauth->userinfo->get();
-        
-        // Storing data into database
-        $id = mysqli_real_escape_string($db_connection, $google_account_info->id);
-        $full_name = mysqli_real_escape_string($db_connection, trim($google_account_info->name));
-        $email = mysqli_real_escape_string($db_connection, $google_account_info->email);
-        $profile_pic = mysqli_real_escape_string($db_connection, $google_account_info->picture);
-
-        // checking user already exists or not
-        $get_user = mysqli_query($db_connection, "SELECT `google_id` FROM `users` WHERE `google_id`='$id'");
-        if(mysqli_num_rows($get_user) > 0){
-
-            $_SESSION['username'] = $id; 
-            header('Location: index.php');
-            exit;
-
-        }
-        else{
-
-            // if user not exists we will insert the user
-            $insert = mysqli_query($db_connection, "INSERT INTO `users`(`google_id`,`name`,`email`,`profile_image`) VALUES('$id','$full_name','$email','$profile_pic')");
-
-            if($insert){
-                $_SESSION['username'] = $id; 
-                header('Location: index.php');
-                exit;
-            }
-            else{
-                echo "Sign up failed!(Something went wrong).";
-            }
-
-        }
-
-    }
-    else{
-        header('Location: index.php');
-        exit;
-    }
-    
-else: 
-    // Google Login Url = $client->createAuthUrl(); 
-?>
-<a class="login-btn" style="display: inline-block;
+ 
+                     <a class="login-btn" style="display: inline-block;
             background-color: #E53E3E;
             color: #fff;
             text-decoration: none;
             padding:5px 10px;
             border-radius: 2px;
-            border: 1px solid rgba(0, 0, 0, 0.1);" 
-            href="<?php echo $client->createAuthUrl(); ?>">Login with Google</a>
-
-<?php endif; ?>
-
-<!--End of Sign with Google Section------>
+            border: 1px solid rgba(0, 0, 0, 0.1);">Login with Google</a>
                     
             <br><br>
                     <button type="submit" name="login_user" style="border: 1px solid red ; background-color: transparent;"  
